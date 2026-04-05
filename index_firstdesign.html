@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Igwem.MA — Microsoft Modern Workplace & IT Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #333333;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+
+    /* ─── Rotating headline ─── */
+    .word-rotator {
+      display: inline-block;
+      overflow: hidden;
+      height: 1.05em;
+      vertical-align: bottom;
+    }
+    .word-rotator-track {
+      display: flex;
+      flex-direction: column;
+      animation: rotateWords 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .word-rotator-track span {
+      display: block;
+      height: 1.05em;
+      line-height: 1.05em;
+      color: #D9A441;
+      white-space: nowrap;
+    }
+    @keyframes rotateWords {
+      0%, 20%  { transform: translateY(0); }
+      25%, 45% { transform: translateY(-1.05em); }
+      50%, 70% { transform: translateY(-2.1em); }
+      75%, 95% { transform: translateY(-3.15em); }
+      100%     { transform: translateY(0); }
+    }
+
+    /* ─── Layout ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+    /* ─── Nav ─── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #1A0808;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-link {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px; font-weight: 500;
+      padding: 4px 0; position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: ''; position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 1.5px; background: #D9A441;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ─── Buttons ─── */
+    .btn-solid {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #8B0000; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px; border: none;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-solid:hover { background: #6A0000; transform: translateY(-1px); }
+    .btn-solid:active { transform: translateY(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
+
+    .btn-outline-dark {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: #8B0000;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px;
+      border: 1.5px solid #8B0000;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .btn-outline-dark:hover { background: #8B0000; color: #fff; }
+
+    .btn-copper {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #D9A441; color: #1A0808;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px; border: none;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-copper:hover { background: #C49030; transform: translateY(-1px); }
+    .btn-copper:active { transform: translateY(0); }
+
+    /* ─── Service cards ─── */
+    .service-card {
+      background: #fff; border: 1px solid #E5E5E5; border-radius: 14px;
+      padding: 32px 28px;
+      transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+      cursor: default;
+    }
+    .service-card:hover {
+      box-shadow: 0 10px 36px rgba(139,0,0,0.09), 0 2px 10px rgba(0,0,0,0.06);
+      transform: translateY(-4px);
+      border-color: rgba(139,0,0,0.25);
+    }
+
+    /* ─── Process steps ─── */
+    .process-step {
+      text-align: center; padding: 36px 28px;
+      border-radius: 16px; background: #fff;
+      border: 1px solid #E5E5E5;
+      transition: box-shadow 0.25s ease, transform 0.2s ease;
+    }
+    .process-step:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, #8B0000, #C0391B);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 6px 16px rgba(139,0,0,0.3);
+    }
+
+    /* ─── Vendor logos ─── */
+    .vendor-logo {
+      background: #fff; border: 1px solid #E5E5E5; border-radius: 10px;
+      padding: 16px 22px;
+      display: flex; align-items: center; justify-content: center;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .vendor-logo:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); border-color: #D9A441; }
+
+    /* ─── Feature bullets ─── */
+    .feature-bullet { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 18px; }
+    .bullet-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(139,0,0,0.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* ─── Icon wrap ─── */
+    .icon-wrap {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    /* ─── Stats ─── */
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 58px; font-weight: 800; letter-spacing: -2px; line-height: 1;
+      background: linear-gradient(135deg, #D9A441 0%, #8B0000 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Footer links ─── */
+    .footer-link {
+      color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px;
+      display: block; margin-bottom: 11px;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: #D9A441; }
+
+    /* ─── Social icon ─── */
+    .social-btn {
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); text-decoration: none;
+      font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .social-btn:hover { border-color: #D9A441; color: #D9A441; }
+
+    /* ─── Grain overlay ─── */
+    .grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Pill badge ─── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(217,164,65,0.13); color: #D9A441;
+      border: 1px solid rgba(217,164,65,0.28);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 12px; font-family: 'Montserrat', sans-serif;
+      font-weight: 600; letter-spacing: 0.03em; margin-bottom: 20px;
+    }
+
+    /* ─── Section label ─── */
+    .section-label {
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #D9A441;
+      display: block; margin-bottom: 12px;
+    }
+
+    /* ─── Mini info card ─── */
+    .mini-card {
+      padding: 18px 20px; background: #FDFCF8;
+      border-radius: 10px; border: 1px solid #E5E5E5;
+    }
+
+    /* ─── Microsoft badge tag ─── */
+    .ms-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #f0f4ff; color: #0067b8;
+      border: 1px solid rgba(0,103,184,0.2);
+      border-radius: 6px; padding: 4px 10px;
+      font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: 600;
+      margin: 4px 4px 4px 0;
+    }
+
+    /* ─── Dividers ─── */
+    .trust-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.18); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hide-mobile { display: none !important; }
+      .hero-grid, .two-col, .three-col, .cta-grid { grid-template-columns: 1fr !important; }
+      .four-col { grid-template-columns: 1fr 1fr !important; }
+      .six-col  { grid-template-columns: repeat(3, 1fr) !important; }
+      .footer-grid { grid-template-columns: 1fr 1fr !important; }
+      .stat-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAVIGATION ══════════════════════ -->
+<nav class="site-nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:68px;">
+      <a href="#" style="flex-shrink:0;display:flex;align-items:center;">
+        <img src="brand_assets/IGWEM.MA LOGO TRANSPARRENT.png" alt="Igwem.MA" style="height:34px;width:auto;">
+      </a>
+
+      <div class="hide-mobile" style="display:flex;align-items:center;gap:34px;">
+        <a href="#services"     class="nav-link">Services</a>
+        <a href="#solutions"    class="nav-link">Solutions</a>
+        <a href="#vendors"      class="nav-link">Vendors</a>
+        <a href="#process"      class="nav-link">Our Process</a>
+        <a href="#contact"      class="nav-link">Contact</a>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="#contact" class="btn-outline" style="font-size:13px;padding:9px 18px;">View services</a>
+        <a href="#contact" class="btn-copper"  style="font-size:13px;padding:9px 18px;">Free consultation</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section style="background:#1A0808;position:relative;overflow:hidden;padding:88px 0 72px;">
+  <div style="position:absolute;top:-15%;left:-8%;width:640px;height:640px;background:radial-gradient(circle,rgba(139,0,0,0.28) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-30%;right:-4%;width:520px;height:520px;background:radial-gradient(circle,rgba(217,164,65,0.1) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="grain"></div>
+
+  <div class="container">
+    <div class="hero-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+
+      <!-- Left: copy -->
+      <div>
+        <div class="pill">
+          <svg width="7" height="7" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+          Microsoft Partner · IT Services Specialist
+        </div>
+
+        <h1 style="font-size:68px;font-weight:800;line-height:1.0;letter-spacing:-3px;color:#fff;margin-bottom:24px;">
+          Modern IT for<br>
+          <span class="word-rotator">
+            <span class="word-rotator-track">
+              <span>your business</span>
+              <span>the cloud</span>
+              <span>your team</span>
+              <span>your business</span>
+            </span>
+          </span>
+        </h1>
+
+        <p style="font-size:17px;line-height:1.78;color:rgba(255,255,255,0.62);margin-bottom:36px;max-width:490px;">
+          We consult, design, and execute your migration to Microsoft Modern Workplace — from M365 and Azure to hosted VoIP and cloud-first IT strategy. No guesswork, no disruption.
+        </p>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap;">
+          <a href="#contact" class="btn-copper" style="font-size:15px;padding:13px 26px;">Book a free consultation</a>
+          <a href="#services" class="btn-outline" style="font-size:15px;padding:13px 26px;">Explore services</a>
+        </div>
+
+        <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:32px;font-style:italic;">No commitment · Discovery call takes 30 minutes</p>
+
+        <!-- Trust signals -->
+        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#D9A441;font-family:'Montserrat',sans-serif;line-height:1;">M365</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Montserrat',sans-serif;margin-top:3px;">Certified</div>
+          </div>
+          <div class="trust-divider"></div>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#D9A441;font-family:'Montserrat',sans-serif;line-height:1;">Azure</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Montserrat',sans-serif;margin-top:3px;">Cloud Partner</div>
+          </div>
+          <div class="trust-divider"></div>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#D9A441;font-family:'Montserrat',sans-serif;line-height:1;">50+</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Montserrat',sans-serif;margin-top:3px;">Migrations delivered</div>
+          </div>
+          <div class="trust-divider"></div>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#D9A441;font-family:'Montserrat',sans-serif;line-height:1;">100%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Montserrat',sans-serif;margin-top:3px;">On-time delivery</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: visual -->
+      <div style="position:relative;">
+        <!-- Main dashboard mockup -->
+        <div style="border-radius:18px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.55),0 10px 28px rgba(139,0,0,0.18);">
+          <img src="https://placehold.co/620x440/2A1010/D9A441?text=Microsoft+365+%7C+Teams+%7C+Azure" alt="Microsoft Modern Workplace" style="width:100%;display:block;">
+        </div>
+        <!-- Floating: Migration complete card -->
+        <div style="position:absolute;bottom:-18px;left:-22px;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 8px 28px rgba(0,0,0,0.15);display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:10px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0067b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1A0808;">Migration complete</div>
+            <div style="font-size:11px;color:#0067b8;font-weight:600;margin-top:2px;">M365 · Zero downtime</div>
+          </div>
+        </div>
+        <!-- Floating: VoIP card -->
+        <div style="position:absolute;top:20px;right:-20px;background:#1A0808;border:1px solid rgba(217,164,65,0.3);border-radius:10px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;color:#D9A441;line-height:1;">VoIP</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;">Hosted &amp; Teams-native</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ VENDOR PARTNER BAR ══════════════════════ -->
+<section style="background:#FDFCF8;border-bottom:1px solid #E5E5E5;padding:36px 0;">
+  <div class="container">
+    <p style="text-align:center;font-size:11px;color:#aaa;letter-spacing:0.1em;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:24px;">Authorised partner &amp; reseller of leading technology vendors</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;">
+      <img src="https://placehold.co/110x32/f0f4ff/0067b8?text=Microsoft" alt="Microsoft" style="height:28px;opacity:0.7;">
+      <img src="https://placehold.co/90x32/fff4e6/D9A441?text=Azure" alt="Microsoft Azure" style="height:28px;opacity:0.7;">
+      <img src="https://placehold.co/90x32/E5E5E5/555555?text=Veeam" alt="Veeam" style="height:28px;opacity:0.55;filter:grayscale(0.4);">
+      <img src="https://placehold.co/90x32/E5E5E5/555555?text=Sophos" alt="Sophos" style="height:28px;opacity:0.55;filter:grayscale(0.4);">
+      <img src="https://placehold.co/80x32/E5E5E5/555555?text=3CX" alt="3CX" style="height:28px;opacity:0.55;filter:grayscale(0.4);">
+      <img src="https://placehold.co/100x32/E5E5E5/555555?text=Datto" alt="Datto" style="height:28px;opacity:0.55;filter:grayscale(0.4);">
+      <img src="https://placehold.co/110x32/E5E5E5/555555?text=SentinelOne" alt="SentinelOne" style="height:28px;opacity:0.55;filter:grayscale(0.4);">
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ SERVICES GRID ══════════════════════ -->
+<section id="services" style="padding:80px 0;background:#fff;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <h2 style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;margin-bottom:16px;">What we do</h2>
+      <p style="font-size:17px;color:#666;max-width:560px;margin:0 auto;line-height:1.75;">We are an end-to-end IT partner — from the initial assessment through to ongoing support. No silos, no handoffs between providers.</p>
+    </div>
+
+    <div class="four-col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+
+      <!-- Modern Workplace -->
+      <div class="service-card">
+        <div class="icon-wrap" style="background:#f0f4ff;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0067b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3 style="font-size:17px;font-weight:700;color:#1A0808;margin-bottom:10px;">Microsoft Modern Workplace</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;margin-bottom:16px;">Full deployment of Microsoft 365, Teams, SharePoint, OneDrive, Intune, and Entra ID — configured to your business.</p>
+        <div>
+          <span class="ms-tag">M365</span><span class="ms-tag">Teams</span><span class="ms-tag">Intune</span><span class="ms-tag">Entra ID</span>
+        </div>
+      </div>
+
+      <!-- Cloud Services -->
+      <div class="service-card">
+        <div class="icon-wrap" style="background:rgba(217,164,65,0.12);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D9A441" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </div>
+        <h3 style="font-size:17px;font-weight:700;color:#1A0808;margin-bottom:10px;">Cloud Services</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;margin-bottom:16px;">Azure infrastructure, cloud migration, backup &amp; disaster recovery, and identity management — all managed and monitored.</p>
+        <div>
+          <span class="ms-tag" style="background:#fff8ec;color:#C07A00;border-color:rgba(192,122,0,0.2);">Azure</span>
+          <span class="ms-tag" style="background:#fff8ec;color:#C07A00;border-color:rgba(192,122,0,0.2);">Veeam</span>
+          <span class="ms-tag" style="background:#fff8ec;color:#C07A00;border-color:rgba(192,122,0,0.2);">Datto</span>
+        </div>
+      </div>
+
+      <!-- Hosted VoIP -->
+      <div class="service-card">
+        <div class="icon-wrap" style="background:rgba(139,0,0,0.08);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+        </div>
+        <h3 style="font-size:17px;font-weight:700;color:#1A0808;margin-bottom:10px;">Hosted VoIP</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;margin-bottom:16px;">Replace legacy phone systems with cloud-hosted VoIP — Microsoft Teams Phone, 3CX, and Gamma Horizon solutions.</p>
+        <div>
+          <span class="ms-tag" style="background:#fff0f0;color:#8B0000;border-color:rgba(139,0,0,0.2);">Teams Phone</span>
+          <span class="ms-tag" style="background:#fff0f0;color:#8B0000;border-color:rgba(139,0,0,0.2);">3CX</span>
+          <span class="ms-tag" style="background:#fff0f0;color:#8B0000;border-color:rgba(139,0,0,0.2);">Gamma</span>
+        </div>
+      </div>
+
+      <!-- IT Consulting -->
+      <div class="service-card">
+        <div class="icon-wrap" style="background:rgba(139,0,0,0.08);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3 style="font-size:17px;font-weight:700;color:#1A0808;margin-bottom:10px;">IT Consulting</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;margin-bottom:16px;">Technology audits, IT roadmap design, licensing optimisation, and strategic guidance — aligned to your business goals.</p>
+        <div>
+          <span class="ms-tag" style="background:#fff0f0;color:#8B0000;border-color:rgba(139,0,0,0.2);">IT Audit</span>
+          <span class="ms-tag" style="background:#fff0f0;color:#8B0000;border-color:rgba(139,0,0,0.2);">Roadmap</span>
+          <span class="ms-tag" style="background:#fff0f0;color:#8B0000;border-color:rgba(139,0,0,0.2);">Licensing</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ OUR PROCESS ══════════════════════ -->
+<section id="process" style="padding:80px 0;background:#FDFCF8;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label">How we work</span>
+      <h2 style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;margin-bottom:16px;">From first conversation<br>to full deployment</h2>
+      <p style="font-size:17px;color:#666;max-width:540px;margin:0 auto;line-height:1.75;">We follow a structured, proven process — so you always know where you are, what comes next, and what it will cost.</p>
+    </div>
+
+    <div class="three-col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;">
+
+      <!-- Connector lines (desktop only) -->
+      <div class="hide-mobile" style="position:absolute;top:52px;left:calc(33.33% - 10px);right:calc(33.33% - 10px);height:2px;background:linear-gradient(90deg,rgba(139,0,0,0.2),rgba(217,164,65,0.4),rgba(139,0,0,0.2));z-index:0;"></div>
+
+      <div class="process-step" style="position:relative;z-index:1;">
+        <div class="step-num">1</div>
+        <h3 style="font-size:18px;font-weight:700;color:#1A0808;margin-bottom:12px;">Assess</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;">We start with a thorough IT audit — understanding your current infrastructure, licensing, pain points, security posture, and business objectives.</p>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5;">
+          <div style="font-size:12px;color:#aaa;font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">What we review</div>
+          <div style="font-size:13px;color:#777;">Infrastructure · Licensing · Security · Workflows · Cost</div>
+        </div>
+      </div>
+
+      <div class="process-step" style="position:relative;z-index:1;">
+        <div class="step-num">2</div>
+        <h3 style="font-size:18px;font-weight:700;color:#1A0808;margin-bottom:12px;">Design</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;">We produce a tailored migration and technology plan — including solution architecture, licensing recommendations, timeline, and a fixed-price proposal.</p>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5;">
+          <div style="font-size:12px;color:#aaa;font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">What you receive</div>
+          <div style="font-size:13px;color:#777;">Architecture · Roadmap · Timeline · Fixed quote</div>
+        </div>
+      </div>
+
+      <div class="process-step" style="position:relative;z-index:1;">
+        <div class="step-num">3</div>
+        <h3 style="font-size:18px;font-weight:700;color:#1A0808;margin-bottom:12px;">Deploy</h3>
+        <p style="font-size:14px;line-height:1.72;color:#666;">We execute the migration — zero-downtime where possible — and provide full user onboarding, documentation, and optional ongoing managed support.</p>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5;">
+          <div style="font-size:12px;color:#aaa;font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">What we deliver</div>
+          <div style="font-size:13px;color:#777;">Migration · Training · Docs · Ongoing support</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ MODERN WORKPLACE DEEP DIVE ══════════════════════ -->
+<section id="solutions" style="padding:80px 0;background:#fff;">
+  <div class="container">
+    <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+      <!-- Image left -->
+      <div style="position:relative;">
+        <div style="border-radius:18px;overflow:hidden;box-shadow:0 28px 64px rgba(0,0,0,0.1),0 6px 20px rgba(0,103,184,0.08);">
+          <img src="https://placehold.co/580x440/f0f4ff/0067b8?text=Microsoft+365+%7C+Teams+%7C+SharePoint" alt="Microsoft 365" style="width:100%;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,23,60,0.2) 100%);border-radius:18px;pointer-events:none;"></div>
+        </div>
+        <!-- Microsoft badge -->
+        <div style="position:absolute;top:24px;right:-18px;background:#0067b8;border-radius:12px;padding:14px 18px;color:#fff;box-shadow:0 10px 24px rgba(0,103,184,0.4);">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;line-height:1;">Microsoft</div>
+          <div style="font-size:10px;opacity:0.8;margin-top:3px;">365 Specialist</div>
+        </div>
+      </div>
+
+      <!-- Text right -->
+      <div>
+        <span class="section-label">Microsoft Modern Workplace</span>
+        <h2 style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;line-height:1.15;margin-bottom:18px;">The complete M365<br>migration partner</h2>
+        <p style="font-size:16px;line-height:1.8;color:#555;margin-bottom:32px;">We handle every aspect of your Microsoft 365 deployment — from tenant setup and data migration to Teams configuration, security hardening, and end-user training.</p>
+
+        <div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Teams &amp; SharePoint deployment</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Full configuration of collaboration tools — channels, permissions, intranet, and document libraries.</div>
+            </div>
+          </div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Intune &amp; device management</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Enrol and manage all devices from one pane — enforce policies, push apps, and protect endpoints.</div>
+            </div>
+          </div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Entra ID &amp; Zero Trust security</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Conditional Access, MFA, and identity governance — protecting your users from the ground up.</div>
+            </div>
+          </div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Licensing optimisation</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">We audit your existing spend and ensure you're on the right plan — no overpaying, no gaps.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:36px;">
+          <a href="#contact" class="btn-solid">Discuss your M365 project &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ CLOUD & VOIP ══════════════════════ -->
+<section style="padding:80px 0;background:#FDFCF8;">
+  <div class="container">
+    <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+      <!-- Text left -->
+      <div>
+        <span class="section-label">Cloud &amp; Hosted VoIP</span>
+        <h2 style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;line-height:1.15;margin-bottom:18px;">Move your infrastructure<br>and your phones to the cloud</h2>
+        <p style="font-size:16px;line-height:1.8;color:#555;margin-bottom:32px;">Whether you need Azure cloud infrastructure, backup and disaster recovery, or a hosted VoIP solution to replace your legacy PSTN system — we plan and execute it all.</p>
+
+        <div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Azure cloud migration</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Lift-and-shift or full re-architecture — we migrate servers, storage, and databases to Azure with minimal disruption.</div>
+            </div>
+          </div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Backup &amp; disaster recovery</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Veeam and Datto-powered backup with tested recovery — so your data is always protected and restorable.</div>
+            </div>
+          </div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">Microsoft Teams Phone</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Extend Teams into your phone system — Direct Routing or Operator Connect for a fully unified communications stack.</div>
+            </div>
+          </div>
+          <div class="feature-bullet">
+            <div class="bullet-icon">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:#1A0808;margin-bottom:3px;">3CX &amp; Gamma Horizon VoIP</div>
+              <div style="font-size:13px;color:#777;line-height:1.65;">Fully managed hosted phone systems for businesses who want flexibility and enterprise features at SMB pricing.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:36px;">
+          <a href="#contact" class="btn-solid">Talk to us about cloud &amp; VoIP &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Image right -->
+      <div style="position:relative;">
+        <div style="border-radius:18px;overflow:hidden;box-shadow:0 28px 64px rgba(0,0,0,0.1);">
+          <img src="https://placehold.co/580x440/fff8ec/C07A00?text=Azure+Cloud+%7C+VoIP+%7C+Backup" alt="Cloud and VoIP" style="width:100%;display:block;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(26,8,8,0.15) 100%);border-radius:18px;pointer-events:none;"></div>
+        </div>
+        <!-- Uptime badge -->
+        <div style="position:absolute;bottom:28px;left:-18px;background:#fff;border-radius:12px;padding:13px 18px;box-shadow:0 8px 28px rgba(0,0,0,0.12);display:flex;align-items:center;gap:11px;">
+          <div style="width:11px;height:11px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,0.2);flex-shrink:0;"></div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#333;">99.9% uptime SLA</div>
+            <div style="font-size:11px;color:#999;margin-top:2px;">Azure &amp; hosted VoIP</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ APP SHOWCASE ══════════════════════ -->
+<section style="background:#1A0808;padding:80px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(217,164,65,0.07) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="grain"></div>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:52px;">
+      <h2 style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#fff;margin-bottom:16px;">Your team, working better<br>on every device</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto;line-height:1.75;">After your migration, your people get a modern, connected workplace — Teams on desktop, mobile, and desk phone, with everything they need in one place.</p>
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:24px;align-items:flex-end;flex-wrap:wrap;">
+      <div style="border-radius:22px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,0.55);width:190px;flex-shrink:0;">
+        <img src="https://placehold.co/190x370/2A1010/D9A441?text=Teams+Mobile" alt="Teams Mobile" style="width:100%;display:block;">
+      </div>
+      <div style="border-radius:16px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,0.55);width:500px;flex-shrink:0;">
+        <img src="https://placehold.co/500x340/1a2040/4da6ff?text=Microsoft+365+Desktop" alt="Microsoft 365 Desktop" style="width:100%;display:block;">
+      </div>
+      <div style="border-radius:22px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,0.55);width:190px;flex-shrink:0;">
+        <img src="https://placehold.co/190x370/2A1010/D9A441?text=VoIP+App" alt="VoIP" style="width:100%;display:block;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ WHY US — DARK CTA ══════════════════════ -->
+<section style="background:#FDFCF8;padding:80px 0;" id="contact">
+  <div class="container">
+    <div style="background:linear-gradient(135deg,#8B0000 0%,#520000 100%);border-radius:22px;padding:64px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(217,164,65,0.18) 0%,transparent 70%);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-80px;left:-30px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);pointer-events:none;"></div>
+      <div class="grain"></div>
+
+      <div class="cta-grid" style="display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;position:relative;z-index:1;">
+        <div>
+          <span class="section-label" style="color:#D9A441;">Free IT consultation</span>
+          <h2 style="font-size:38px;font-weight:800;letter-spacing:-1.5px;color:#fff;line-height:1.2;margin-bottom:16px;">Not sure where to start?<br>Let's talk through your IT.</h2>
+          <p style="font-size:16px;color:rgba(255,255,255,0.62);line-height:1.78;max-width:520px;">Book a free 30-minute discovery call. We'll review your current setup, understand what you're trying to achieve, and tell you exactly what we'd recommend — with no obligation.</p>
+        </div>
+        <div style="flex-shrink:0;display:flex;flex-direction:column;gap:12px;align-items:center;">
+          <a href="mailto:hello@igwem.ma" class="btn-copper" style="font-size:15px;padding:14px 30px;white-space:nowrap;">Book free consultation</a>
+          <a href="tel:+441234567890" style="color:rgba(255,255,255,0.5);font-size:13px;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:600;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">Or call us directly &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ VENDORS / PARTNERS ══════════════════════ -->
+<section id="vendors" style="padding:80px 0;background:#fff;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Our vendor ecosystem</span>
+      <h2 style="font-size:38px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;margin-bottom:16px;">Best-of-breed technology,<br>independently recommended</h2>
+      <p style="font-size:16px;color:#666;max-width:520px;margin:0 auto;line-height:1.75;">We are vendor-agnostic advisors. We partner with the best in class for each category — so you get the right tool, not the highest-margin one.</p>
+    </div>
+
+    <!-- Microsoft / Modern Workplace -->
+    <div style="margin-bottom:40px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#0067b8;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #f0f4ff;">Microsoft Modern Workplace</div>
+      <div class="six-col" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=Microsoft+365" alt="Microsoft 365" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=MS+Teams" alt="Teams" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=SharePoint" alt="SharePoint" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=Intune" alt="Intune" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=Entra+ID" alt="Entra ID" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=Defender" alt="Defender" style="height:24px;"></div>
+      </div>
+    </div>
+
+    <!-- Cloud & Azure -->
+    <div style="margin-bottom:40px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#C07A00;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #fff8ec;">Cloud &amp; Infrastructure</div>
+      <div class="six-col" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/fff8ec/C07A00?text=Azure" alt="Azure" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Veeam" alt="Veeam" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Datto" alt="Datto" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Acronis" alt="Acronis" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=N-able" alt="N-able" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Nerdio" alt="Nerdio" style="height:24px;opacity:0.7;"></div>
+      </div>
+    </div>
+
+    <!-- Security -->
+    <div style="margin-bottom:40px;">
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#8B0000;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #fff0f0;">Cybersecurity</div>
+      <div class="six-col" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/fff0f0/8B0000?text=Sophos" alt="Sophos" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/fff0f0/8B0000?text=SentinelOne" alt="SentinelOne" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Mimecast" alt="Mimecast" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Huntress" alt="Huntress" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Proofpoint" alt="Proofpoint" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Webroot" alt="Webroot" style="height:24px;opacity:0.7;"></div>
+      </div>
+    </div>
+
+    <!-- VoIP / Telephony -->
+    <div>
+      <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #E5E5E5;">Hosted VoIP &amp; Telephony</div>
+      <div class="six-col" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/f0f4ff/0067b8?text=Teams+Phone" alt="Teams Phone" style="height:24px;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=3CX" alt="3CX" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Gamma" alt="Gamma" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=RingCentral" alt="RingCentral" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Natterbox" alt="Natterbox" style="height:24px;opacity:0.7;"></div>
+        <div class="vendor-logo"><img src="https://placehold.co/90x30/E5E5E5/555?text=Cisco+Meraki" alt="Cisco Meraki" style="height:24px;opacity:0.7;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ IT CONSULTING SECTION ══════════════════════ -->
+<section style="padding:80px 0;background:#FDFCF8;">
+  <div class="container">
+    <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+      <!-- Image -->
+      <div style="border-radius:18px;overflow:hidden;box-shadow:0 28px 64px rgba(0,0,0,0.1);">
+        <img src="https://placehold.co/580x460/FDFCF8/8B0000?text=IT+Strategy+%26+Consulting" alt="IT Consulting" style="width:100%;display:block;">
+      </div>
+
+      <!-- Text -->
+      <div>
+        <span class="section-label">IT Consulting</span>
+        <h2 style="font-size:40px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;line-height:1.2;margin-bottom:20px;">Strategy-first IT — not just box-shifting</h2>
+        <p style="font-size:16px;color:#555;line-height:1.8;margin-bottom:34px;">Too many IT providers sell products. We start with your business goals — then recommend the technology that gets you there. Our consulting engagements are independent, honest, and tailored.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="mini-card">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1A0808;margin-bottom:6px;">IT Audit &amp; Health Check</div>
+            <div style="font-size:12px;color:#777;line-height:1.65;">Full review of your current infrastructure, licensing, security, and costs.</div>
+          </div>
+          <div class="mini-card">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1A0808;margin-bottom:6px;">Technology Roadmap</div>
+            <div style="font-size:12px;color:#777;line-height:1.65;">A 12–36 month plan aligned to your growth, headcount, and budget.</div>
+          </div>
+          <div class="mini-card">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1A0808;margin-bottom:6px;">Vendor Selection</div>
+            <div style="font-size:12px;color:#777;line-height:1.65;">Unbiased comparison and recommendation across competing products.</div>
+          </div>
+          <div class="mini-card">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1A0808;margin-bottom:6px;">Licensing Review</div>
+            <div style="font-size:12px;color:#777;line-height:1.65;">Identify overspend and gaps across M365, Azure, and third-party tools.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:36px;">
+          <a href="#contact" class="btn-solid">Book an IT audit &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ STATS ══════════════════════ -->
+<section style="background:#1A0808;padding:80px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:260px;background:radial-gradient(ellipse,rgba(139,0,0,0.22) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="grain"></div>
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px;">
+      <h2 style="font-size:38px;font-weight:800;letter-spacing:-1.5px;color:#fff;margin-bottom:12px;">Trusted to deliver</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.45);max-width:400px;margin:0 auto;line-height:1.7;">Real numbers from real projects — migrations completed, clients supported, and zero failures.</p>
+    </div>
+
+    <div class="stat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;">
+      <div>
+        <div class="stat-number">50+</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:rgba(255,255,255,0.6);margin-top:10px;">M365 migrations</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:4px;">delivered without data loss</div>
+      </div>
+      <div>
+        <div class="stat-number">100%</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:rgba(255,255,255,0.6);margin-top:10px;">On-time delivery</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:4px;">across all projects</div>
+      </div>
+      <div>
+        <div class="stat-number">30+</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:rgba(255,255,255,0.6);margin-top:10px;">Active clients</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:4px;">across SMB &amp; enterprise</div>
+      </div>
+      <div>
+        <div class="stat-number">24/7</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:14px;color:rgba(255,255,255,0.6);margin-top:10px;">Support available</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:4px;">on managed contracts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ CLIENT LOGOS ══════════════════════ -->
+<section style="background:#FDFCF8;padding:60px 0;border-bottom:1px solid #E5E5E5;">
+  <div class="container">
+    <p style="text-align:center;font-size:11px;color:#bbb;letter-spacing:0.1em;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:32px;">Clients we've migrated to Microsoft Modern Workplace</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:52px;flex-wrap:wrap;">
+      <img src="https://placehold.co/130x38/E5E5E5/aaaaaa?text=LawFirm+Co" alt="" style="height:34px;opacity:0.4;filter:grayscale(1);">
+      <img src="https://placehold.co/120x38/E5E5E5/aaaaaa?text=Architects+Ltd" alt="" style="height:34px;opacity:0.4;filter:grayscale(1);">
+      <img src="https://placehold.co/106x38/E5E5E5/aaaaaa?text=FinGroup" alt="" style="height:34px;opacity:0.4;filter:grayscale(1);">
+      <img src="https://placehold.co/128x38/E5E5E5/aaaaaa?text=Logistics+UK" alt="" style="height:34px;opacity:0.4;filter:grayscale(1);">
+      <img src="https://placehold.co/110x38/E5E5E5/aaaaaa?text=Retail+Chain" alt="" style="height:34px;opacity:0.4;filter:grayscale(1);">
+      <img src="https://placehold.co/120x38/E5E5E5/aaaaaa?text=Healthcare+Co" alt="" style="height:34px;opacity:0.4;filter:grayscale(1);">
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer style="background:#1A0808;padding:64px 0 32px;">
+  <div class="container">
+    <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px;">
+
+      <div>
+        <img src="brand_assets/IGWEM.MA LOGO TRANSPARRENT.png" alt="Igwem.MA" style="height:32px;display:block;margin-bottom:20px;">
+        <p style="font-size:14px;color:rgba(255,255,255,0.42);line-height:1.75;max-width:250px;margin-bottom:24px;">Microsoft Modern Workplace, cloud services, hosted VoIP, and IT consulting — delivered end-to-end.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">tw</a>
+          <a href="#" class="social-btn">fb</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Services</div>
+        <a href="#" class="footer-link">Modern Workplace</a>
+        <a href="#" class="footer-link">Cloud Services</a>
+        <a href="#" class="footer-link">Hosted VoIP</a>
+        <a href="#" class="footer-link">IT Consulting</a>
+        <a href="#" class="footer-link">Managed Support</a>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Solutions</div>
+        <a href="#" class="footer-link">Microsoft 365</a>
+        <a href="#" class="footer-link">Azure Migration</a>
+        <a href="#" class="footer-link">Teams Phone</a>
+        <a href="#" class="footer-link">Backup &amp; DR</a>
+        <a href="#" class="footer-link">Cybersecurity</a>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Company</div>
+        <a href="#" class="footer-link">About us</a>
+        <a href="#" class="footer-link">Our process</a>
+        <a href="#" class="footer-link">Case studies</a>
+        <a href="#" class="footer-link">Blog</a>
+        <a href="#" class="footer-link">Contact</a>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Legal</div>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Cookie Policy</a>
+        <a href="#" class="footer-link">GDPR</a>
+        <a href="#" class="footer-link">Security</a>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div style="font-size:13px;color:rgba(255,255,255,0.28);">&copy; 2026 Igwem.MA. All rights reserved. Microsoft Modern Workplace Specialist.</div>
+      <div style="display:flex;gap:22px;">
+        <a href="#" style="font-size:12px;color:rgba(255,255,255,0.28);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Privacy</a>
+        <a href="#" style="font-size:12px;color:rgba(255,255,255,0.28);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Terms</a>
+        <a href="#" style="font-size:12px;color:rgba(255,255,255,0.28);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
