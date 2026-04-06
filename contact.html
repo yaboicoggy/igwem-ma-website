@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Free IT Consultation | Igwem.MA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="brand_assets/favicon 2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #333333;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+
+    /* ─── Layout ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+    /* ─── Nav ─── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #1A0808;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-link {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px; font-weight: 500;
+      padding: 4px 0; position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: ''; position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 1.5px; background: #D9A441;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ─── Buttons ─── */
+    .btn-solid {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #8B0000; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px; border: none;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-solid:hover { background: #6A0000; transform: translateY(-1px); }
+    .btn-solid:active { transform: translateY(0); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
+
+    .btn-copper {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #D9A441; color: #1A0808;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px;
+      padding: 11px 22px; border-radius: 8px; border: none;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-copper:hover { background: #C49030; transform: translateY(-1px); }
+    .btn-copper:active { transform: translateY(0); }
+
+    /* ─── Form inputs ─── */
+    .form-label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: #1A0808; margin-bottom: 7px;
+    }
+    .form-input {
+      width: 100%;
+      border: 1.5px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px; color: #333;
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #8B0000;
+      box-shadow: 0 0 0 3px rgba(139,0,0,0.08);
+    }
+    .form-input::placeholder { color: #bbb; }
+    textarea.form-input { resize: vertical; min-height: 130px; }
+
+    /* ─── Footer links ─── */
+    .footer-link {
+      color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px;
+      display: block; margin-bottom: 11px;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: #D9A441; }
+
+    /* ─── Social icon ─── */
+    .social-btn {
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); text-decoration: none;
+      font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .social-btn:hover { border-color: #D9A441; color: #D9A441; }
+
+    /* ─── Grain overlay ─── */
+    .grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── Section label ─── */
+    .section-label {
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #D9A441;
+      display: block; margin-bottom: 12px;
+    }
+
+    /* ─── Mini info card ─── */
+    .mini-card {
+      padding: 22px 24px; background: #FDFCF8;
+      border-radius: 12px; border: 1px solid #E5E5E5;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hide-mobile { display: none !important; }
+      .contact-grid { grid-template-columns: 1fr !important; }
+      .footer-grid { grid-template-columns: 1fr 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAVIGATION ══════════════════════ -->
+<nav class="site-nav">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:68px;">
+      <a href="index.html" aria-label="Igwem.MA home" style="flex-shrink:0;display:block;">
+        <img src="brand_assets/logo burgendy .png" alt="Igwem.MA" style="height:48px;display:block;width:auto;">
+      </a>
+
+      <div class="hide-mobile" style="display:flex;align-items:center;gap:34px;">
+        <a href="index.html#who-we-help" class="nav-link">Who We Help</a>
+        <a href="services.html"          class="nav-link">Services</a>
+        <a href="services.html#solutions" class="nav-link">Solutions</a>
+        <a href="vendors.html"           class="nav-link">Vendors</a>
+        <a href="contact.html"           class="nav-link" style="color:#D9A441;">Contact</a>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="services.html" class="btn-outline" style="font-size:13px;padding:9px 18px;">View services</a>
+        <a href="contact.html"  class="btn-copper"  style="font-size:13px;padding:9px 18px;">Free consultation</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════ PAGE HERO ══════════════════════ -->
+<section style="background:#1A0808;padding:64px 0 56px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-20%;left:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(139,0,0,0.22) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-30%;right:-4%;width:400px;height:400px;background:radial-gradient(circle,rgba(217,164,65,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="grain"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <span style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#D9A441;display:block;margin-bottom:14px;">Get in touch</span>
+    <h1 style="font-size:52px;font-weight:800;letter-spacing:-2px;color:#fff;line-height:1.05;margin-bottom:18px;">Let's talk about<br>your IT</h1>
+    <p style="font-size:17px;color:rgba(255,255,255,0.55);max-width:540px;line-height:1.75;">Book a free 30-minute discovery call. No commitment, no jargon — just an honest conversation about where your business is and how we can help.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ CONTACT FORM + SIDEBAR ══════════════════════ -->
+<section style="padding:80px 0;background:#fff;">
+  <div class="container">
+    <div class="contact-grid" style="display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start;">
+
+      <!-- Left: Form -->
+      <div style="background:#fff;border:1px solid #E5E5E5;border-radius:20px;padding:48px;">
+        <h2 style="font-size:28px;font-weight:800;letter-spacing:-0.8px;color:#1A0808;margin-bottom:8px;">Book a free consultation</h2>
+        <p style="font-size:15px;color:#777;line-height:1.7;margin-bottom:36px;">Fill in the form and we'll be in touch within one business day to schedule your call.</p>
+
+        <form action="mailto:hello@igwem.ma" method="post" enctype="text/plain">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+            <div>
+              <label class="form-label" for="first-name">First name</label>
+              <input class="form-input" type="text" id="first-name" name="first-name" placeholder="Jane" required>
+            </div>
+            <div>
+              <label class="form-label" for="last-name">Last name</label>
+              <input class="form-input" type="text" id="last-name" name="last-name" placeholder="Smith" required>
+            </div>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <label class="form-label" for="email">Work email</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="jane@yourcompany.com" required>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <label class="form-label" for="company">Company name</label>
+            <input class="form-input" type="text" id="company" name="company" placeholder="Acme Ltd">
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <label class="form-label" for="size">Company size</label>
+            <select class="form-input" id="size" name="size">
+              <option value="" disabled selected>Select team size</option>
+              <option>1–5 employees (startup)</option>
+              <option>6–25 employees</option>
+              <option>26–100 employees</option>
+              <option>100+ employees</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <label class="form-label" for="service">What are you looking for?</label>
+            <select class="form-input" id="service" name="service">
+              <option value="" disabled selected>Select a service area</option>
+              <option>Microsoft 365 / Modern Workplace</option>
+              <option>Azure &amp; Cloud Infrastructure</option>
+              <option>Hosted VoIP &amp; Phone System</option>
+              <option>IT Consulting &amp; Strategy</option>
+              <option>Cybersecurity</option>
+              <option>Full IT setup (new business)</option>
+              <option>Not sure — I need guidance</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:32px;">
+            <label class="form-label" for="message">Tell us about your situation</label>
+            <textarea class="form-input" id="message" name="message" placeholder="Briefly describe your current IT setup and what you'd like to achieve..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-copper" style="width:100%;justify-content:center;font-size:15px;padding:14px 24px;">
+            Send message &rarr;
+          </button>
+          <p style="text-align:center;font-size:12px;color:#bbb;margin-top:14px;font-style:italic;">We respond within 1 business day · No commitment required</p>
+        </form>
+      </div>
+
+      <!-- Right: Sidebar -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+
+        <!-- Direct contact -->
+        <div style="background:#1A0808;border-radius:16px;padding:32px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(217,164,65,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+          <div class="grain"></div>
+          <div style="position:relative;z-index:1;">
+            <span class="section-label">Direct contact</span>
+            <div style="margin-bottom:20px;">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;">Email us</div>
+              <a href="mailto:hello@igwem.ma" style="font-size:16px;font-weight:600;color:#D9A441;text-decoration:none;font-family:'Montserrat',sans-serif;">hello@igwem.ma</a>
+            </div>
+            <div style="margin-bottom:20px;">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;">Call us</div>
+              <a href="tel:+441234567890" style="font-size:16px;font-weight:600;color:#fff;text-decoration:none;font-family:'Montserrat',sans-serif;">+44 (0) 1234 567 890</a>
+            </div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;">Office hours</div>
+              <div style="font-size:14px;color:rgba(255,255,255,0.65);">Mon – Fri, 9am – 6pm GMT</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What to expect -->
+        <div style="border:1px solid #E5E5E5;border-radius:16px;padding:28px;">
+          <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#1A0808;margin-bottom:20px;">What to expect on the call</div>
+
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:flex-start;gap:13px;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(139,0,0,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;color:#8B0000;">1</span>
+              </div>
+              <div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;color:#1A0808;margin-bottom:3px;">We listen first</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;">We'll ask about your business, your team, and your current tech setup — no pitch until we understand you.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:13px;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(139,0,0,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;color:#8B0000;">2</span>
+              </div>
+              <div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;color:#1A0808;margin-bottom:3px;">Honest recommendations</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;">We'll tell you what we'd do — even if the answer is "you don't need us for this."</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:13px;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(139,0,0,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;color:#8B0000;">3</span>
+              </div>
+              <div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;color:#1A0808;margin-bottom:3px;">Clear next steps</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;">You'll leave with a clear picture of options and costs — no vague follow-ups.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust -->
+        <div style="border:1px solid #E5E5E5;border-radius:16px;padding:28px;background:#FDFCF8;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D9A441" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1A0808;">Trusted by 50+ businesses</div>
+          </div>
+          <p style="font-size:13px;color:#777;line-height:1.7;margin-bottom:0;">"Igwem.MA set up our entire Microsoft environment from scratch. The whole process was smooth, well-explained, and exactly on time."</p>
+          <div style="margin-top:14px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:#aaa;letter-spacing:0.05em;">— Client, Professional Services firm</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ FAQ ══════════════════════ -->
+<section style="background:#FDFCF8;padding:80px 0;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-size:38px;font-weight:800;letter-spacing:-1.5px;color:#1A0808;">Quick answers</h2>
+    </div>
+
+    <div style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px;">
+
+      <details style="border:1px solid #E5E5E5;border-radius:12px;padding:22px 24px;background:#fff;cursor:pointer;">
+        <summary style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1A0808;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+          How long does the free consultation take?
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round"><polyline points="4 6 8 10 12 6"/></svg>
+        </summary>
+        <p style="font-size:14px;color:#666;line-height:1.75;margin-top:14px;">Around 30 minutes. We use the time to understand your business and current setup — not to pitch. You'll leave with clear recommendations regardless of whether you choose to work with us.</p>
+      </details>
+
+      <details style="border:1px solid #E5E5E5;border-radius:12px;padding:22px 24px;background:#fff;cursor:pointer;">
+        <summary style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1A0808;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+          Do you work with businesses outside the UK?
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round"><polyline points="4 6 8 10 12 6"/></svg>
+        </summary>
+        <p style="font-size:14px;color:#666;line-height:1.75;margin-top:14px;">We're UK-based but work with companies across Europe and further afield. Cloud-first IT means most of what we do can be delivered and supported remotely — location is rarely a barrier.</p>
+      </details>
+
+      <details style="border:1px solid #E5E5E5;border-radius:12px;padding:22px 24px;background:#fff;cursor:pointer;">
+        <summary style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1A0808;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+          We already have IT support — can you still help?
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round"><polyline points="4 6 8 10 12 6"/></svg>
+        </summary>
+        <p style="font-size:14px;color:#666;line-height:1.75;margin-top:14px;">Yes. We often work alongside existing in-house IT teams on specific projects — cloud migrations, Microsoft 365 rollouts, VoIP deployments — or take over as a full managed service provider. We'll work around what you already have.</p>
+      </details>
+
+      <details style="border:1px solid #E5E5E5;border-radius:12px;padding:22px 24px;background:#fff;cursor:pointer;">
+        <summary style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1A0808;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+          How quickly can you get started?
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round"><polyline points="4 6 8 10 12 6"/></svg>
+        </summary>
+        <p style="font-size:14px;color:#666;line-height:1.75;margin-top:14px;">For most projects we can start within 1–2 weeks of the initial call. Straightforward setups like Microsoft 365 for a new business can be live within a few days. We'll give you a realistic timeline after understanding your situation.</p>
+      </details>
+
+      <details style="border:1px solid #E5E5E5;border-radius:12px;padding:22px 24px;background:#fff;cursor:pointer;">
+        <summary style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1A0808;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+          Do you offer ongoing support contracts?
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round"><polyline points="4 6 8 10 12 6"/></svg>
+        </summary>
+        <p style="font-size:14px;color:#666;line-height:1.75;margin-top:14px;">Yes — we offer flexible managed IT support packages from ad-hoc hours through to fully managed 24/7 service plans. Many clients start with a project and move onto ongoing support once they see how we work.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer style="background:#1A0808;padding:64px 0 32px;">
+  <div class="container">
+    <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px;">
+
+      <div>
+        <img src="brand_assets/IGWEM.MA LOGO TRANSPARRENT.png" alt="Igwem.MA" style="height:32px;display:block;margin-bottom:20px;">
+        <p style="font-size:14px;color:rgba(255,255,255,0.42);line-height:1.75;max-width:250px;margin-bottom:24px;">Helping startups and SMBs build the right technology foundation — cloud-first, scalable, and secure from day one.</p>
+        <div style="display:flex;gap:10px;">
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">tw</a>
+          <a href="#" class="social-btn">fb</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Services</div>
+        <a href="services.html" class="footer-link">Modern Workplace</a>
+        <a href="services.html" class="footer-link">Cloud Services</a>
+        <a href="services.html" class="footer-link">Hosted VoIP</a>
+        <a href="services.html" class="footer-link">IT Consulting</a>
+        <a href="services.html" class="footer-link">Managed Support</a>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Solutions</div>
+        <a href="services.html#solutions" class="footer-link">Microsoft 365</a>
+        <a href="services.html#solutions" class="footer-link">Azure Migration</a>
+        <a href="services.html#solutions" class="footer-link">Teams Phone</a>
+        <a href="services.html#solutions" class="footer-link">Backup &amp; DR</a>
+        <a href="services.html#solutions" class="footer-link">Cybersecurity</a>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Company</div>
+        <a href="index.html#who-we-help" class="footer-link">Who We Help</a>
+        <a href="services.html#process" class="footer-link">Our Process</a>
+        <a href="vendors.html" class="footer-link">Vendors</a>
+        <a href="#" class="footer-link">Blog</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:16px;">Legal</div>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Cookie Policy</a>
+        <a href="#" class="footer-link">GDPR</a>
+        <a href="#" class="footer-link">Security</a>
+      </div>
+
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div style="font-size:13px;color:rgba(255,255,255,0.28);">&copy; 2026 Igwem.MA. All rights reserved. IT Services for Startups &amp; SMBs.</div>
+      <div style="display:flex;gap:22px;">
+        <a href="#" style="font-size:12px;color:rgba(255,255,255,0.28);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Privacy</a>
+        <a href="#" style="font-size:12px;color:rgba(255,255,255,0.28);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Terms</a>
+        <a href="#" style="font-size:12px;color:rgba(255,255,255,0.28);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#D9A441'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
